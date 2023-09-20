@@ -1,9 +1,5 @@
-import axios, { AxiosResponse } from 'axios'
-
-export type ApiResponse<T> = {
-  code: number
-  data: T
-}
+import { AxiosResponse } from 'axios'
+import { ApiResponse, axiosInstance } from './APIService'
 
 type CreateSheetsData = {
   fileName: string
@@ -12,12 +8,6 @@ export type DriveFileUrls = {
   webContentLink: string | undefined | null
   webViewLink: string | undefined | null
 }
-
-const axiosInstance = axios.create({
-  // TODO add check url when starting server
-  baseURL: process.env.REACT_APP_API_BASE_URL || '',
-  timeout: parseInt(process.env.REACT_APP_API_DEFAULT_TIMEOUT || '5000'),
-})
 
 export const create = async (
   data: CreateSheetsData,

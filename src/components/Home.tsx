@@ -62,34 +62,37 @@ function Home() {
             })
           }
         />
-        <Button
-          onClick={handleApiCollect}
-          disabled={loading}
-          variant="contained"
-        >
-          Start
-        </Button>
-        <div>
-          <h2>Additional Information</h2>
-          {conv.additionalInfo.map((e, index) => (
-            <div key={e.question}>
-              <p>{e.question}</p>
-              <TextField
-                type="text"
-                value={e.answer}
-                onChange={(e) => handleAnswerChange(index, e.target.value)}
-              />
-            </div>
-          ))}
-        </div>
-
-        <Button
-          onClick={handleApiCreation}
-          disabled={loading}
-          variant="contained"
-        >
-          Generate file
-        </Button>
+        {conv.additionalInfo.length == 0 && (
+          <Button
+            onClick={handleApiCollect}
+            disabled={loading}
+            variant="contained"
+          >
+            Start
+          </Button>
+        )}
+        {conv.additionalInfo.length > 0 && (
+          <div>
+            <h2>Additional Information</h2>
+            {conv.additionalInfo.map((e, index) => (
+              <div key={e.question} className="text-base pt-5">
+                <TextField
+                  label={e.question}
+                  fullWidth={true}
+                  className="bg-white rounded-2xl"
+                  onChange={(e) => handleAnswerChange(index, e.target.value)}
+                />
+              </div>
+            ))}
+            <Button
+              onClick={handleApiCreation}
+              disabled={loading}
+              variant="contained"
+            >
+              Generate file
+            </Button>
+          </div>
+        )}
         {fileUrls && (
           <div>
             {fileUrls.webViewLink && (

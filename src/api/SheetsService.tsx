@@ -5,6 +5,7 @@ type CreateSheetsData = {
   fileName: string
 }
 export type DriveFileUrls = {
+  spreadSheetsId: string
   webContentLink: string | undefined | null
   webViewLink: string | undefined | null
 }

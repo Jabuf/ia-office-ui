@@ -9,11 +9,12 @@ import {
   updateGraphics,
   updateStyles,
 } from '../api/ModelService'
+import PromptUtils from '../utils/PromptUtils'
 
 function Home() {
   const [fileUrls, setFileUrls] = useState<DriveFileUrls | null>(null)
   const [conv, setConv] = useState<Conv>({
-    initialPrompt: 'Je veux pouvoir lister mes dépenses en vacances.',
+    initialPrompt: PromptUtils.getRandomPrompt(),
     additionalInfo: [],
     spreadSheetsId: '',
     parentResId: '',
@@ -110,6 +111,7 @@ function Home() {
             <div>
               {fileUrls.webViewLink && (
                 <Button
+                  disabled={loading}
                   href={fileUrls.webViewLink}
                   target="_blank"
                   variant="contained"

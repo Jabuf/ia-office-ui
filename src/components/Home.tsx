@@ -24,32 +24,32 @@ function Home() {
     data: false,
     graphics: false,
     styles: false,
+    createTime: '0',
   })
   const steps = [
     {
       order: 0,
-      label: 'création fichier',
+      label: 'création fichier et tableaux',
       status: progression.create,
+      time: progression.createTime,
     },
     {
       order: 1,
-      label: 'ajout tableaux',
-      status: progression.create,
+      label: 'ajout données',
+      status: progression.data,
+      time: '0',
     },
     {
       order: 2,
-      label: 'ajout données',
-      status: progression.data,
+      label: 'ajout graphiques',
+      status: progression.graphics,
+      time: '0',
     },
     {
       order: 3,
-      label: 'ajout graphiques',
-      status: progression.graphics,
-    },
-    {
-      order: 4,
       label: 'mise en forme',
       status: progression.styles,
+      time: '0',
     },
   ]
 
@@ -58,7 +58,11 @@ function Home() {
       setLoading(true)
 
       try {
+        const start = performance.now()
         const response = await createSpreadsheet(conv)
+        const end = performance.now()
+        progression.createTime = ((end - start) / 60000).toFixed(1)
+
         conv.spreadSheetsId = response.data.spreadSheetsId
         progression.create = true
         await updateData(conv)
@@ -74,22 +78,6 @@ function Home() {
       }
     })()
   }
-  // const handleApiCollect = () => {
-  //   void (async () => {
-  //     setLoading(true)
-  //
-  //     try {
-  //       const response = await collectInformation(conv)
-  //       setConv(response.data)
-  //     } finally {
-  //       setLoading(false)
-  //     }
-  //   })()
-  // }
-
-  // const handleAnswerChange = (position: number, answer: string) => {
-  //   conv.additionalInfo[position].answer = answer
-  // }
 
   return (
     <div className="Home">
@@ -110,60 +98,38 @@ function Home() {
             })
           }
         />
-        {!fileUrls && (
+        <div>
           <Button
             onClick={handleApiCreation}
             disabled={loading}
             variant="contained"
           >
-            Start
+            start
           </Button>
-        )}
-        {fileUrls && (
-          <div>
-            {fileUrls.webViewLink && (
-              <Button
-                href={fileUrls.webViewLink}
-                target="_blank"
-                variant="contained"
-              >
-                view
-              </Button>
-            )}
-            {fileUrls.webContentLink && (
-              <Button
-                href={fileUrls.webContentLink}
-                target="_blank"
-                variant="contained"
-              >
-                download
-              </Button>
-            )}
-          </div>
-        )}
-        {/*{conv.additionalInfo.length > 0 && (*/}
-        {/*  <div>*/}
-        {/*    <h2>Additional Information</h2>*/}
-        {/*    {conv.additionalInfo.map((e, index) => (*/}
-        {/*      <div key={e.question} className="text-base pt-5">*/}
-        {/*        <TextField*/}
-        {/*          label={e.question}*/}
-        {/*          fullWidth={true}*/}
-        {/*          className="bg-white rounded-2xl"*/}
-        {/*          onChange={(e) => handleAnswerChange(index, e.target.value)}*/}
-        {/*        />*/}
-        {/*      </div>*/}
-        {/*    ))}*/}
-        {/*    <Button*/}
-        {/*      onClick={handleApiCreation}*/}
-        {/*      disabled={loading}*/}
-        {/*      variant="contained"*/}
-        {/*    >*/}
-        {/*      Generate file*/}
-        {/*    </Button>*/}
-        {/*  </div>*/}
-        {/*)}*/}
-        {loading && (
+          {fileUrls && (
+            <div>
+              {fileUrls.webViewLink && (
+                <Button
+                  href={fileUrls.webViewLink}
+                  target="_blank"
+                  variant="contained"
+                >
+                  view
+                </Button>
+              )}
+              {fileUrls.webContentLink && (
+                <Button
+                  href={fileUrls.webContentLink}
+                  target="_blank"
+                  variant="contained"
+                >
+                  download
+                </Button>
+              )}
+            </div>
+          )}
+        </div>
+        {(loading || fileUrls) && (
           <div>
             <ul className="text-2xl">
               {steps.map((step) => (
@@ -171,7 +137,7 @@ function Home() {
                   key={step.order}
                   className={step.status ? 'text-green-700' : 'text-rose-700'}
                 >
-                  {step.label}
+                  {step.label} - {step.time}m
                 </li>
               ))}
             </ul>

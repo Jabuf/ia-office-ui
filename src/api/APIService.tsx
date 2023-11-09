@@ -7,5 +7,5 @@ export type ApiResponse<T> = {
 
 export const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL || '',
-  timeout: parseInt(process.env.REACT_APP_API_DEFAULT_TIMEOUT || '600000'),
+  timeout: parseInt(process.env.REACT_APP_API_DEFAULT_TIMEOUT || '300000'),
 })

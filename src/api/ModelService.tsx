@@ -1,6 +1,11 @@
-import { AxiosResponse } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 import { DriveFileUrls } from './SheetsService'
-import { ApiResponse, axiosInstance } from './APIService'
+import {
+  ApiResponse,
+  axiosInstance,
+  displayApiError,
+  displayApiSuccess,
+} from './APIService'
 
 export type Conv = {
   initialPrompt: string
@@ -18,10 +23,22 @@ const baseUrl = '/model'
 
 export const createSpreadsheet = async (
   data: Conv,
-): Promise<ApiResponse<DriveFileUrls>> => {
-  const response: AxiosResponse<ApiResponse<DriveFileUrls>> =
-    await axiosInstance.post(baseUrl, data)
-  return response.data
+): Promise<ApiResponse<DriveFileUrls> | null> => {
+  let res: ApiResponse<DriveFileUrls> | null = null
+  const startTime = performance.now()
+
+  await axiosInstance
+    .post(baseUrl, data)
+    .then((response: AxiosResponse<ApiResponse<DriveFileUrls>>) => {
+      const endTime = performance.now()
+      displayApiSuccess('fichier créé', endTime - startTime)
+      res = response.data
+    })
+    .catch((err: AxiosError) => {
+      displayApiError(err)
+    })
+
+  return res
 }
 
 export const updateData = async (

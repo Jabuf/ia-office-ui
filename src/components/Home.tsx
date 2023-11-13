@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 import '../styles/Home.css'
-import { Button, TextField } from '@mui/material'
+import {
+  Button,
+  FormControlLabel,
+  FormGroup,
+  Switch,
+  TextField,
+} from '@mui/material'
 import { DriveFileUrls } from '../api/SheetsService'
 import {
   Conv,
@@ -23,6 +29,23 @@ function Home() {
   })
   const [loading, setLoading] = useState(false)
 
+  type Steps = {
+    [key: string]: boolean
+  }
+  const [steps, setSteps] = useState<Steps>({
+    exemples: true,
+    formules: true,
+    graphiques: true,
+    style: true,
+  })
+
+  const handleStepsChange = (stepName: string) => {
+    setSteps((prevSteps) => ({
+      ...prevSteps,
+      [stepName]: !prevSteps[stepName],
+    }))
+  }
+
   const handleApiCreation = () => {
     void (async () => {
       setLoading(true)
@@ -31,10 +54,18 @@ function Home() {
 
       if (response) {
         conv.spreadSheetsId = response.data.spreadSheetsId
-        await updateExamples(conv)
-        await updateFormulas(conv)
-        await updateGraphics(conv)
-        await updateStyles(conv)
+        if (steps.exemples) {
+          await updateExamples(conv)
+        }
+        if (steps.formules) {
+          await updateFormulas(conv)
+        }
+        if (steps.graphiques) {
+          await updateGraphics(conv)
+        }
+        if (steps.style) {
+          await updateStyles(conv)
+        }
 
         setFileUrls(response.data)
       }
@@ -73,6 +104,15 @@ function Home() {
             })
           }
         />
+        <FormGroup>
+          {Object.keys(steps).map((stepName) => (
+            <FormControlLabel
+              control={<Switch defaultChecked />}
+              label={stepName}
+              onChange={() => handleStepsChange(stepName)}
+            />
+          ))}
+        </FormGroup>
         <div>
           <Button
             onClick={handleApiCreation}

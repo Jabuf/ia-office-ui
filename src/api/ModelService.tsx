@@ -31,7 +31,7 @@ export const createSpreadsheet = async (
     .post(baseUrl, data)
     .then((response: AxiosResponse<ApiResponse<DriveFileUrls>>) => {
       const endTime = performance.now()
-      displayApiSuccess('fichier créé', endTime - startTime)
+      displayApiSuccess('fichier', endTime - startTime)
       res = response.data
     })
     .catch((err: AxiosError) => {
@@ -41,28 +41,84 @@ export const createSpreadsheet = async (
   return res
 }
 
-export const updateData = async (
+export const updateExamples = async (
   data: Conv,
-): Promise<ApiResponse<DriveFileUrls>> => {
-  const response: AxiosResponse<ApiResponse<DriveFileUrls>> =
-    await axiosInstance.put(`${baseUrl}/data`, data)
-  return response.data
+): Promise<ApiResponse<DriveFileUrls> | null> => {
+  let res: ApiResponse<DriveFileUrls> | null = null
+  const startTime = performance.now()
+
+  await axiosInstance
+    .put(`${baseUrl}/examples`, data)
+    .then((response: AxiosResponse<ApiResponse<DriveFileUrls>>) => {
+      const endTime = performance.now()
+      displayApiSuccess('exemples', endTime - startTime)
+      res = response.data
+    })
+    .catch((err: AxiosError) => {
+      displayApiError(err)
+    })
+
+  return res
+}
+
+export const updateFormulas = async (
+  data: Conv,
+): Promise<ApiResponse<DriveFileUrls> | null> => {
+  let res: ApiResponse<DriveFileUrls> | null = null
+  const startTime = performance.now()
+
+  await axiosInstance
+    .put(`${baseUrl}/formulas`, data)
+    .then((response: AxiosResponse<ApiResponse<DriveFileUrls>>) => {
+      const endTime = performance.now()
+      displayApiSuccess('formules', endTime - startTime)
+      res = response.data
+    })
+    .catch((err: AxiosError) => {
+      displayApiError(err)
+    })
+
+  return res
 }
 
 export const updateGraphics = async (
   data: Conv,
-): Promise<ApiResponse<DriveFileUrls>> => {
-  const response: AxiosResponse<ApiResponse<DriveFileUrls>> =
-    await axiosInstance.put(`${baseUrl}/graphics`, data)
-  return response.data
+): Promise<ApiResponse<DriveFileUrls> | null> => {
+  let res: ApiResponse<DriveFileUrls> | null = null
+  const startTime = performance.now()
+
+  await axiosInstance
+    .put(`${baseUrl}/graphics`, data)
+    .then((response: AxiosResponse<ApiResponse<DriveFileUrls>>) => {
+      const endTime = performance.now()
+      displayApiSuccess('graphiques', endTime - startTime)
+      res = response.data
+    })
+    .catch((err: AxiosError) => {
+      displayApiError(err)
+    })
+
+  return res
 }
 
 export const updateStyles = async (
   data: Conv,
-): Promise<ApiResponse<DriveFileUrls>> => {
-  const response: AxiosResponse<ApiResponse<DriveFileUrls>> =
-    await axiosInstance.put(`${baseUrl}/styles`, data)
-  return response.data
+): Promise<ApiResponse<DriveFileUrls> | null> => {
+  let res: ApiResponse<DriveFileUrls> | null = null
+  const startTime = performance.now()
+
+  await axiosInstance
+    .put(`${baseUrl}/styles`, data)
+    .then((response: AxiosResponse<ApiResponse<DriveFileUrls>>) => {
+      const endTime = performance.now()
+      displayApiSuccess('mise en forme', endTime - startTime)
+      res = response.data
+    })
+    .catch((err: AxiosError) => {
+      displayApiError(err)
+    })
+
+  return res
 }
 export const collectInformation = async (
   data: Conv,

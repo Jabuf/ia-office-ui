@@ -5,7 +5,8 @@ import { DriveFileUrls } from '../api/SheetsService'
 import {
   Conv,
   createSpreadsheet,
-  updateData,
+  updateExamples,
+  updateFormulas,
   updateGraphics,
   updateStyles,
 } from '../api/ModelService'
@@ -30,7 +31,8 @@ function Home() {
 
       if (response) {
         conv.spreadSheetsId = response.data.spreadSheetsId
-        await updateData(conv)
+        await updateExamples(conv)
+        await updateFormulas(conv)
         await updateGraphics(conv)
         await updateStyles(conv)
 

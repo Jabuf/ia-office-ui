@@ -7,7 +7,7 @@ import {
   Switch,
   TextField,
 } from '@mui/material'
-import { DriveFileUrls } from '../api/SheetsService'
+import { DriveFileInfo } from '../api/SheetsService'
 import {
   Conv,
   createSpreadsheet,
@@ -21,7 +21,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import { RotatingSquare } from 'react-loader-spinner'
 
 function Home() {
-  const [fileUrls, setFileUrls] = useState<DriveFileUrls | null>(null)
+  const [fileUrls, setFileUrls] = useState<DriveFileInfo | null>(null)
   const [conv, setConv] = useState<Conv>({
     initialPrompt: PromptUtils.getRandomPrompt(),
     additionalInfo: [],
@@ -55,7 +55,8 @@ function Home() {
       const response = await createSpreadsheet(conv)
 
       if (response) {
-        conv.spreadSheetsId = response.data.spreadSheetsId
+        conv.spreadSheetsId = response.data.driveFileInfo.spreadSheetsId
+        conv.parentResId = response.data.parentResId
         if (steps.exemples) {
           await updateExamples(conv)
         }
@@ -69,7 +70,7 @@ function Home() {
           await updateStyles(conv)
         }
 
-        setFileUrls(response.data)
+        setFileUrls(response.data.driveFileInfo)
       }
       setLoading(false)
     })()

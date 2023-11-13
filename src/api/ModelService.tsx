@@ -1,5 +1,5 @@
 import { AxiosError, AxiosResponse } from 'axios'
-import { DriveFileUrls } from './SheetsService'
+import { SpreadSheetInfo } from './SheetsService'
 import {
   ApiResponse,
   axiosInstance,
@@ -23,13 +23,13 @@ const baseUrl = '/model'
 
 export const createSpreadsheet = async (
   data: Conv,
-): Promise<ApiResponse<DriveFileUrls> | null> => {
-  let res: ApiResponse<DriveFileUrls> | null = null
+): Promise<ApiResponse<SpreadSheetInfo> | null> => {
+  let res: ApiResponse<SpreadSheetInfo> | null = null
   const startTime = performance.now()
 
   await axiosInstance
     .post(baseUrl, data)
-    .then((response: AxiosResponse<ApiResponse<DriveFileUrls>>) => {
+    .then((response: AxiosResponse<ApiResponse<SpreadSheetInfo>>) => {
       const endTime = performance.now()
       displayApiSuccess('fichier', endTime - startTime)
       res = response.data
@@ -43,13 +43,13 @@ export const createSpreadsheet = async (
 
 export const updateExamples = async (
   data: Conv,
-): Promise<ApiResponse<DriveFileUrls> | null> => {
-  let res: ApiResponse<DriveFileUrls> | null = null
+): Promise<ApiResponse<SpreadSheetInfo> | null> => {
+  let res: ApiResponse<SpreadSheetInfo> | null = null
   const startTime = performance.now()
 
   await axiosInstance
     .put(`${baseUrl}/examples`, data)
-    .then((response: AxiosResponse<ApiResponse<DriveFileUrls>>) => {
+    .then((response: AxiosResponse<ApiResponse<SpreadSheetInfo>>) => {
       const endTime = performance.now()
       displayApiSuccess('exemples', endTime - startTime)
       res = response.data
@@ -63,13 +63,13 @@ export const updateExamples = async (
 
 export const updateFormulas = async (
   data: Conv,
-): Promise<ApiResponse<DriveFileUrls> | null> => {
-  let res: ApiResponse<DriveFileUrls> | null = null
+): Promise<ApiResponse<SpreadSheetInfo> | null> => {
+  let res: ApiResponse<SpreadSheetInfo> | null = null
   const startTime = performance.now()
 
   await axiosInstance
     .put(`${baseUrl}/formulas`, data)
-    .then((response: AxiosResponse<ApiResponse<DriveFileUrls>>) => {
+    .then((response: AxiosResponse<ApiResponse<SpreadSheetInfo>>) => {
       const endTime = performance.now()
       displayApiSuccess('formules', endTime - startTime)
       res = response.data
@@ -83,13 +83,13 @@ export const updateFormulas = async (
 
 export const updateGraphics = async (
   data: Conv,
-): Promise<ApiResponse<DriveFileUrls> | null> => {
-  let res: ApiResponse<DriveFileUrls> | null = null
+): Promise<ApiResponse<SpreadSheetInfo> | null> => {
+  let res: ApiResponse<SpreadSheetInfo> | null = null
   const startTime = performance.now()
 
   await axiosInstance
     .put(`${baseUrl}/graphics`, data)
-    .then((response: AxiosResponse<ApiResponse<DriveFileUrls>>) => {
+    .then((response: AxiosResponse<ApiResponse<SpreadSheetInfo>>) => {
       const endTime = performance.now()
       displayApiSuccess('graphiques', endTime - startTime)
       res = response.data
@@ -103,13 +103,13 @@ export const updateGraphics = async (
 
 export const updateStyles = async (
   data: Conv,
-): Promise<ApiResponse<DriveFileUrls> | null> => {
-  let res: ApiResponse<DriveFileUrls> | null = null
+): Promise<ApiResponse<SpreadSheetInfo> | null> => {
+  let res: ApiResponse<SpreadSheetInfo> | null = null
   const startTime = performance.now()
 
   await axiosInstance
     .put(`${baseUrl}/styles`, data)
-    .then((response: AxiosResponse<ApiResponse<DriveFileUrls>>) => {
+    .then((response: AxiosResponse<ApiResponse<SpreadSheetInfo>>) => {
       const endTime = performance.now()
       displayApiSuccess('mise en forme', endTime - startTime)
       res = response.data

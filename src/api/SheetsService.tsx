@@ -4,7 +4,13 @@ import { ApiResponse, axiosInstance } from './APIService'
 type CreateSheetsData = {
   fileName: string
 }
-export type DriveFileUrls = {
+
+export type SpreadSheetInfo = {
+  parentResId: string
+  driveFileInfo: DriveFileInfo
+}
+
+export type DriveFileInfo = {
   spreadSheetsId: string
   webContentLink: string | undefined | null
   webViewLink: string | undefined | null
@@ -12,16 +18,16 @@ export type DriveFileUrls = {
 
 export const create = async (
   data: CreateSheetsData,
-): Promise<ApiResponse<DriveFileUrls>> => {
-  const response: AxiosResponse<ApiResponse<DriveFileUrls>> =
+): Promise<ApiResponse<DriveFileInfo>> => {
+  const response: AxiosResponse<ApiResponse<DriveFileInfo>> =
     await axiosInstance.post('/sheets', data)
   return response.data
 }
 
 export const getById = async (
   id: string,
-): Promise<ApiResponse<DriveFileUrls>> => {
-  const response: AxiosResponse<ApiResponse<DriveFileUrls>> =
+): Promise<ApiResponse<DriveFileInfo>> => {
+  const response: AxiosResponse<ApiResponse<DriveFileInfo>> =
     await axiosInstance.get('/sheets', {
       params: { id },
     })

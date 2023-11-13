@@ -17,7 +17,7 @@ import {
   updateStyles,
 } from '../api/ModelService'
 import PromptUtils from '../utils/PromptUtils'
-import { ToastContainer } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
 
 function Home() {
   const [fileUrls, setFileUrls] = useState<DriveFileUrls | null>(null)
@@ -47,6 +47,7 @@ function Home() {
   }
 
   const handleApiCreation = () => {
+    toast.dismiss()
     void (async () => {
       setLoading(true)
 

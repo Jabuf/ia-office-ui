@@ -57,7 +57,7 @@ function Home() {
         </div>
         <TextField
           multiline={true}
-          rows={5}
+          rows={10}
           placeholder="Enter a value"
           variant="outlined"
           value={conv.initialPrompt}

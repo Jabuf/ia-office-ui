@@ -18,6 +18,7 @@ import {
 } from '../api/ModelService'
 import PromptUtils from '../utils/PromptUtils'
 import { toast, ToastContainer } from 'react-toastify'
+import { RotatingSquare } from 'react-loader-spinner'
 
 function Home() {
   const [fileUrls, setFileUrls] = useState<DriveFileUrls | null>(null)
@@ -120,6 +121,16 @@ function Home() {
             disabled={loading}
             variant="contained"
           >
+            {loading && (
+              <RotatingSquare
+                height="30"
+                width="30"
+                color="#1565C0"
+                strokeWidth="10"
+                ariaLabel="progress-bar-loading"
+                wrapperClass="pr-1"
+              />
+            )}
             start
           </Button>
           {fileUrls && (

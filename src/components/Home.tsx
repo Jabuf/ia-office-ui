@@ -11,7 +11,6 @@ import { DriveFileInfo } from '../api/SheetsService'
 import {
   Conv,
   createSpreadsheet,
-  updateExamples,
   updateFormulas,
   updateGraphics,
   updateStyles,
@@ -34,7 +33,6 @@ function Home() {
     [key: string]: boolean
   }
   const [steps, setSteps] = useState<Steps>({
-    exemples: true,
     formules: true,
     graphiques: true,
     style: true,
@@ -57,9 +55,6 @@ function Home() {
       if (response) {
         conv.spreadSheetsId = response.data.driveFileInfo.spreadSheetsId
         conv.parentResId = response.data.parentResId
-        if (steps.exemples) {
-          await updateExamples(conv)
-        }
         if (steps.formules) {
           await updateFormulas(conv)
         }

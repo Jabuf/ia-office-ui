@@ -41,26 +41,6 @@ export const createSpreadsheet = async (
   return res
 }
 
-export const updateExamples = async (
-  data: Conv,
-): Promise<ApiResponse<SpreadSheetInfo> | null> => {
-  let res: ApiResponse<SpreadSheetInfo> | null = null
-  const startTime = performance.now()
-
-  await axiosInstance
-    .put(`${baseUrl}/examples`, data)
-    .then((response: AxiosResponse<ApiResponse<SpreadSheetInfo>>) => {
-      const endTime = performance.now()
-      displayApiSuccess('exemples', endTime - startTime)
-      res = response.data
-    })
-    .catch((err: AxiosError) => {
-      displayApiError(err)
-    })
-
-  return res
-}
-
 export const updateFormulas = async (
   data: Conv,
 ): Promise<ApiResponse<SpreadSheetInfo> | null> => {

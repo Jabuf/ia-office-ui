@@ -61,14 +61,14 @@ export const updateFormulas = async (
   return res
 }
 
-export const updateGraphics = async (
+export const updateCharts = async (
   data: Conv,
 ): Promise<ApiResponse<SpreadSheetInfo> | null> => {
   let res: ApiResponse<SpreadSheetInfo> | null = null
   const startTime = performance.now()
 
   await axiosInstance
-    .put(`${baseUrl}/graphics`, data)
+    .put(`${baseUrl}/charts`, data)
     .then((response: AxiosResponse<ApiResponse<SpreadSheetInfo>>) => {
       const endTime = performance.now()
       displayApiSuccess('graphiques', endTime - startTime)
@@ -79,35 +79,4 @@ export const updateGraphics = async (
     })
 
   return res
-}
-
-export const updateStyles = async (
-  data: Conv,
-): Promise<ApiResponse<SpreadSheetInfo> | null> => {
-  let res: ApiResponse<SpreadSheetInfo> | null = null
-  const startTime = performance.now()
-
-  await axiosInstance
-    .put(`${baseUrl}/styles`, data)
-    .then((response: AxiosResponse<ApiResponse<SpreadSheetInfo>>) => {
-      const endTime = performance.now()
-      displayApiSuccess('mise en forme', endTime - startTime)
-      res = response.data
-    })
-    .catch((err: AxiosError) => {
-      displayApiError(err)
-    })
-
-  return res
-}
-export const collectInformation = async (
-  data: Conv,
-): Promise<ApiResponse<Conv>> => {
-  const response: AxiosResponse<ApiResponse<Conv>> = await axiosInstance.get(
-    baseUrl,
-    {
-      params: data,
-    },
-  )
-  return response.data
 }

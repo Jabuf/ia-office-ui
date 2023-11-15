@@ -11,9 +11,8 @@ import { DriveFileInfo } from '../api/SheetsService'
 import {
   Conv,
   createSpreadsheet,
+  updateCharts,
   updateFormulas,
-  updateGraphics,
-  updateStyles,
 } from '../api/ModelService'
 import PromptUtils from '../utils/PromptUtils'
 import { toast, ToastContainer } from 'react-toastify'
@@ -35,7 +34,6 @@ function Home() {
   const [steps, setSteps] = useState<Steps>({
     formules: true,
     graphiques: true,
-    style: true,
   })
 
   const handleStepsChange = (stepName: string) => {
@@ -59,10 +57,7 @@ function Home() {
           await updateFormulas(conv)
         }
         if (steps.graphiques) {
-          await updateGraphics(conv)
-        }
-        if (steps.style) {
-          await updateStyles(conv)
+          await updateCharts(conv)
         }
 
         setFileUrls(response.data.driveFileInfo)

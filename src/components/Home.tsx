@@ -8,12 +8,7 @@ import {
   TextField,
 } from '@mui/material'
 import { DriveFileInfo } from '../api/SheetsService'
-import {
-  Conv,
-  createSpreadsheet,
-  updateCharts,
-  updateFormulas,
-} from '../api/ModelService'
+import { Conv, createSpreadsheet, updateCharts } from '../api/ModelService'
 import PromptUtils from '../utils/PromptUtils'
 import { toast, ToastContainer } from 'react-toastify'
 import { RotatingSquare } from 'react-loader-spinner'
@@ -32,8 +27,7 @@ function Home() {
     [key: string]: boolean
   }
   const [steps, setSteps] = useState<Steps>({
-    formules: true,
-    graphiques: true,
+    graphiques: false,
   })
 
   const handleStepsChange = (stepName: string) => {
@@ -53,9 +47,6 @@ function Home() {
       if (response) {
         conv.spreadSheetsId = response.data.driveFileInfo.spreadSheetsId
         conv.parentResId = response.data.parentResId
-        if (steps.formules) {
-          await updateFormulas(conv)
-        }
         if (steps.graphiques) {
           await updateCharts(conv)
         }
@@ -100,7 +91,7 @@ function Home() {
         <FormGroup>
           {Object.keys(steps).map((stepName) => (
             <FormControlLabel
-              control={<Switch defaultChecked />}
+              control={<Switch />}
               label={stepName}
               onChange={() => handleStepsChange(stepName)}
             />

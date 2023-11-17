@@ -36,15 +36,19 @@ export const displayApiSuccess = (title: string, timeMs = -1) => {
 }
 
 export const displayApiError = (err: AxiosError) => {
+  let displayedMessage = `${err.name} - ${err.message}`
+  if (err.message === 'Network Error') {
+    displayedMessage = `L'API ne répond pas`
+  }
   if (err.response?.data) {
     const res = err.response.data as ApiError
-    if (res.name && res.message) {
-      toast(`${res.name} - ${res.message}`, {
+    if (res.message) {
+      toast(`${res.message}`, {
         type: 'error',
       })
     }
   } else {
-    toast(`${err.name} - ${err.message}`, {
+    toast(displayedMessage, {
       type: 'error',
     })
   }

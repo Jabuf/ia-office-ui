@@ -8,7 +8,12 @@ import {
   TextField,
 } from '@mui/material'
 import { DriveFileInfo } from '../api/SheetsService'
-import { Conv, createSpreadsheet, updateCharts } from '../api/ModelService'
+import {
+  Conv,
+  createSpreadsheet,
+  getStatus,
+  updateCharts,
+} from '../api/ModelService'
 import PromptUtils from '../utils/PromptUtils'
 import { toast, ToastContainer } from 'react-toastify'
 import { RotatingSquare } from 'react-loader-spinner'
@@ -56,9 +61,19 @@ function Home() {
       setLoading(false)
     })()
   }
+
+  const checkStatusOpenApi = () => {
+    void (async () => {
+      await getStatus()
+    })()
+  }
+
   return (
     <div className="Home">
       <header className="App-header space-y-5">
+        <Button onClick={checkStatusOpenApi} variant="contained">
+          Status
+        </Button>
         <div>
           <ToastContainer
             position="top-right"

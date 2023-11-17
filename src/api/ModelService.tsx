@@ -60,3 +60,14 @@ export const updateCharts = async (
 
   return res
 }
+
+export const getStatus = async (): Promise<void> => {
+  await axiosInstance
+    .get(`${baseUrl}/status`)
+    .then(() => {
+      displayApiSuccess('API opérationel')
+    })
+    .catch((err: AxiosError) => {
+      displayApiError(err)
+    })
+}

@@ -5,7 +5,7 @@ import {
   FormControlLabel,
   FormGroup,
   Switch,
-  TextField,
+  TextareaAutosize,
 } from '@mui/material'
 import { DriveFileInfo } from '../api/SheetsService'
 import {
@@ -87,13 +87,11 @@ function Home() {
             theme="colored"
           />
         </div>
-        <TextField
-          multiline={true}
-          rows={10}
+        <TextareaAutosize
+          minRows={10}
           placeholder="Enter a value"
-          variant="outlined"
           value={conv.initialPrompt}
-          className="bg-white rounded-2xl"
+          className="rounded-2xl text-slate-800 text-xl p-2 border-solid border-2 border-sky-500 w-1/2"
           onChange={(e) =>
             setConv({
               initialPrompt: e.target.value,

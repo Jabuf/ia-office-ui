@@ -22,7 +22,6 @@ function Home() {
   const [fileUrls, setFileUrls] = useState<DriveFileInfo | null>(null)
   const [conv, setConv] = useState<Conv>({
     initialPrompt: PromptUtils.getRandomPrompt(),
-    additionalInfo: [],
     spreadSheetsId: '',
     parentResId: '',
   })
@@ -95,7 +94,6 @@ function Home() {
           onChange={(e) =>
             setConv({
               initialPrompt: e.target.value,
-              additionalInfo: conv.additionalInfo,
               spreadSheetsId: '',
               parentResId: '',
             })

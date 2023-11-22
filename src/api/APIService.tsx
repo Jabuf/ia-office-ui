@@ -28,7 +28,7 @@ export const axiosInstance = axios.create({
 export const displayApiSuccess = (title: string, timeMs = -1) => {
   let message = `${title}`
   if (timeMs > 0) {
-    message += ` ${(timeMs / 60000).toFixed(1)}m`
+    message += ` ${(timeMs / 1000).toFixed(1)}s`
   }
   toast(message, {
     type: 'success',

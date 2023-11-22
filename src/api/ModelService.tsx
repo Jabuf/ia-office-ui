@@ -9,14 +9,8 @@ import {
 
 export type Conv = {
   initialPrompt: string
-  additionalInfo: AdditionalInfo[]
   spreadSheetsId: string
   parentResId: string
-}
-
-export type AdditionalInfo = {
-  question: string
-  answer: string
 }
 
 const baseUrl = '/model'

@@ -22,8 +22,7 @@ function Home() {
   const [fileUrls, setFileUrls] = useState<DriveFileInfo | null>(null)
   const [conv, setConv] = useState<Conv>({
     initialPrompt: PromptUtils.getRandomPrompt(),
-    spreadSheetsId: '',
-    parentResId: '',
+    assistedMode: false,
   })
   const [loading, setLoading] = useState(false)
 
@@ -50,7 +49,7 @@ function Home() {
 
       if (response) {
         conv.spreadSheetsId = response.data.driveFileInfo.spreadSheetsId
-        conv.parentResId = response.data.parentResId
+        conv.messages = response.data.messages
         if (steps.graphiques) {
           await updateCharts(conv)
         }
@@ -94,8 +93,7 @@ function Home() {
           onChange={(e) =>
             setConv({
               initialPrompt: e.target.value,
-              spreadSheetsId: '',
-              parentResId: '',
+              assistedMode: true,
             })
           }
         />

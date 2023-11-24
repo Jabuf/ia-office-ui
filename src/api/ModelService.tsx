@@ -9,8 +9,9 @@ import {
 
 export type Conv = {
   initialPrompt: string
-  spreadSheetsId: string
-  parentResId: string
+  assistedMode: boolean
+  spreadSheetsId?: string
+  messages?: []
 }
 
 const baseUrl = '/model'

@@ -6,7 +6,7 @@ type CreateSheetsData = {
 }
 
 export type SpreadSheetInfo = {
-  parentResId: string
+  messages: []
   driveFileInfo: DriveFileInfo
 }
 

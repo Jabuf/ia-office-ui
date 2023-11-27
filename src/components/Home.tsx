@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react'
-import '../styles/Home.css'
+import React, { useEffect, useRef, useState } from 'react'
 import {
+  Button,
   FormControlLabel,
   FormGroup,
   Switch,
@@ -18,6 +18,13 @@ import { toast, ToastContainer } from 'react-toastify'
 import BaseButton from './BaseButton'
 
 function Home() {
+  const startRef = useRef<HTMLButtonElement | null>(null)
+  useEffect(() => {
+    if (startRef.current) {
+      startRef.current.focus()
+    }
+  }, []) // Empty dependency array ensures that this effect runs only once, when the component is mounted
+
   const [conv, setConv] = useState<Conv>({
     initialPrompt: PromptUtils.getRandomPrompt(),
     assistedMode: false,
@@ -83,9 +90,10 @@ function Home() {
 
   return (
     <div className="Home">
-      <header className="App-header space-y-5">
-        <div className="flex flex-col items-center justify-center h-screen">
-          <span>
+      <header className="flex flex-col bg-slate-900 text-slate-50">
+        <div className="flex flex-col h-screen text-3xl items-center justify-center">
+          <Button ref={startRef} autoFocus={true} />
+          <span className=" pb-5">
             Savez-vous précisement ce que doit contenir votre fichier ?
           </span>
           <div className="flex space-x-5">
@@ -99,57 +107,51 @@ function Home() {
             ></BaseButton>
           </div>
         </div>
-        {/*TODO place somewhere else*/}
-        <BaseButton
-          onClick={checkStatusOpenApi}
-          label="Status"
-          loading={loading.status}
-        />
-        <div>
-          <ToastContainer
-            position="top-right"
-            hideProgressBar={false}
-            newestOnTop={false}
-            autoClose={false}
-            closeOnClick
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="colored"
-          />
-        </div>
-        <TextareaAutosize
-          ref={promptRef}
-          minRows={10}
-          placeholder="Enter a value"
-          value={conv.initialPrompt}
-          className="rounded-2xl bg-slate-800 text-lg p-5 border-solid border-0 border-slate-50 w-1/2"
-          onChange={(e) => {
-            setConv({
-              initialPrompt: e.target.value,
-              assistedMode: conv.assistedMode,
-            })
-          }}
-        />
-        <FormGroup>
-          {Object.keys(steps).map((stepName) => (
-            <FormControlLabel
-              control={<Switch />}
-              label={stepName}
-              onChange={() => handleStepsChange(stepName)}
+        <div className="flex h-screen w-screen items-center justify-center">
+          <div>
+            <ToastContainer
+              position="top-right"
+              hideProgressBar={false}
+              newestOnTop={false}
+              autoClose={false}
+              closeOnClick
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="colored"
             />
-          ))}
-        </FormGroup>
-        <div>
-          <BaseButton
-            label={'générer'}
-            onClick={handleApiCreation}
-            disabled={loading.spreadsheet}
-            loading={loading.spreadsheet}
-          />
-          {fileUrls && (
-            <div>
-              {fileUrls.webViewLink && (
+          </div>
+          <div className="flex flex-col w-1/2">
+            <TextareaAutosize
+              ref={promptRef}
+              minRows={10}
+              placeholder="Enter a value"
+              value={conv.initialPrompt}
+              className="rounded-2xl bg-slate-800 text-lg p-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-slate-50"
+              onChange={(e) => {
+                setConv({
+                  initialPrompt: e.target.value,
+                  assistedMode: conv.assistedMode,
+                })
+              }}
+            />
+            <div className="flex flex-col p-3 space-y-3 justify-center items-center">
+              <FormGroup>
+                {Object.keys(steps).map((stepName) => (
+                  <FormControlLabel
+                    control={<Switch />}
+                    label={stepName}
+                    onChange={() => handleStepsChange(stepName)}
+                  />
+                ))}
+              </FormGroup>
+              <BaseButton
+                label={'générer'}
+                onClick={handleApiCreation}
+                disabled={loading.spreadsheet}
+                loading={loading.spreadsheet}
+              />
+              {fileUrls && fileUrls.webViewLink && (
                 <BaseButton
                   disabled={loading.spreadsheet}
                   href={fileUrls.webViewLink}
@@ -157,7 +159,14 @@ function Home() {
                 />
               )}
             </div>
-          )}
+          </div>
+        </div>
+        <div className="p-5">
+          <BaseButton
+            onClick={checkStatusOpenApi}
+            label="Status"
+            loading={loading.status}
+          />
         </div>
       </header>
     </div>

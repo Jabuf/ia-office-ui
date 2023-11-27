@@ -1,5 +1,4 @@
 import React from 'react'
-import '../styles/Home.css'
 import { Button, Typography } from '@mui/material'
 import { RotatingSquare } from 'react-loader-spinner'
 

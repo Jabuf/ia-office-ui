@@ -6,6 +6,7 @@ import {
   Switch,
   TextareaAutosize,
 } from '@mui/material'
+import AccessibleForwardIcon from '@mui/icons-material/AccessibleForward'
 import { DriveFileInfo } from '../api/SheetsService'
 import {
   Conv,
@@ -122,6 +123,7 @@ function Home() {
             />
           </div>
           <div className="flex flex-col w-1/2">
+            {conv.assistedMode && <AccessibleForwardIcon />}
             <TextareaAutosize
               ref={promptRef}
               minRows={10}

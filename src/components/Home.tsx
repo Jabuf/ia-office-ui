@@ -94,18 +94,33 @@ function Home() {
       <header className="flex flex-col bg-slate-900 text-slate-50">
         <div className="flex flex-col h-screen text-3xl items-center justify-center">
           <Button ref={startRef} autoFocus={true} />
-          <span className=" pb-5">
+          <span className=" pb-16">
             Savez-vous précisement ce que doit contenir votre fichier ?
           </span>
-          <div className="flex space-x-5">
-            <BaseButton
-              label="Oui j'ai une bonne idée des tableaux, lignes et colonnes que je souhaite générer"
-              onClick={disableAssistedMode}
-            ></BaseButton>
-            <BaseButton
-              label="Non je préfère laisser la main et juste partir d'une idée générale"
-              onClick={enableAssistedMode}
-            ></BaseButton>
+          <div className="flex space-x-5 w-3/4">
+            <div className="flex flex-col items-center justify-center space-y-5 self-start">
+              <BaseButton
+                label="Oui j'ai une bonne idée des tableaux, lignes et colonnes que je souhaite générer"
+                onClick={disableAssistedMode}
+              />
+              <span className="text-lg text-center w-3/4">
+                ex: Je veux une feuille avec des tableau par différent taux de
+                TVA. Les taux de TVAs sont 20%, 2,1%, 5,5% et 10%. Je veux
+                également une feuille avec un tableau récapitulatif. Chaque
+                tableau devra contenir la valeur des stocks avec en ligne le
+                mois et en colonne l'année et ce pour une entière année civile.
+              </span>
+            </div>
+            <div className="flex flex-col items-center justify-center space-y-5  self-start">
+              <BaseButton
+                label="Non je préfère laisser la main et juste partir d'une idée générale"
+                onClick={enableAssistedMode}
+              />
+              <span className="text-lg text-center w-3/4">
+                ex: Je suis un DPO et je veux envoyer un fichier à la CNIL dans
+                le cadre de la conformité au RGPD.
+              </span>
+            </div>
           </div>
         </div>
         <div className="flex h-screen w-screen items-center justify-center">

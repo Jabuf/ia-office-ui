@@ -7,7 +7,7 @@ export type ApiResponse<T> = {
 }
 
 export type DriveFileInfo = {
-  spreadSheetsId: string
+  fileId: string
   webContentLink: string | undefined | null
   webViewLink: string | undefined | null
 }

@@ -17,6 +17,7 @@ import PromptUtils from '../utils/PromptUtils'
 import { toast, ToastContainer } from 'react-toastify'
 import BaseButton from './BaseButton'
 import { DriveFileInfo } from '../api/APIService'
+import { createDocument } from '../api/DocumentService'
 
 function Home() {
   const startRef = useRef<HTMLButtonElement | null>(null)
@@ -69,7 +70,7 @@ function Home() {
       const response = await createSpreadsheet(conv)
 
       if (response) {
-        conv.spreadSheetsId = response.data.driveFileInfo.spreadSheetsId
+        conv.spreadSheetsId = response.data.driveFileInfo.fileId
         conv.messages = response.data.messages
         if (steps.graphiques) {
           await updateCharts(conv)

@@ -7,16 +7,16 @@ import {
   TextareaAutosize,
 } from '@mui/material'
 import AccessibleForwardIcon from '@mui/icons-material/AccessibleForward'
-import { DriveFileInfo } from '../api/SheetsService'
 import {
   Conv,
   createSpreadsheet,
   getStatus,
   updateCharts,
-} from '../api/ModelService'
+} from '../api/SpreadsheetService'
 import PromptUtils from '../utils/PromptUtils'
 import { toast, ToastContainer } from 'react-toastify'
 import BaseButton from './BaseButton'
+import { DriveFileInfo } from '../api/APIService'
 
 function Home() {
   const startRef = useRef<HTMLButtonElement | null>(null)

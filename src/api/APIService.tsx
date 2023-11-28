@@ -6,6 +6,12 @@ export type ApiResponse<T> = {
   data: T
 }
 
+export type DriveFileInfo = {
+  spreadSheetsId: string
+  webContentLink: string | undefined | null
+  webViewLink: string | undefined | null
+}
+
 export class ApiError {
   code: string
   message: string

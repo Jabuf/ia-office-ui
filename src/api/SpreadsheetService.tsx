@@ -1,10 +1,10 @@
 import { AxiosError, AxiosResponse } from 'axios'
-import { SpreadSheetInfo } from './SheetsService'
 import {
   ApiResponse,
   axiosInstance,
   displayApiError,
   displayApiSuccess,
+  DriveFileInfo,
 } from './APIService'
 
 export type Conv = {
@@ -14,7 +14,12 @@ export type Conv = {
   messages?: []
 }
 
-const baseUrl = '/model'
+export type SpreadSheetInfo = {
+  messages: []
+  driveFileInfo: DriveFileInfo
+}
+
+const baseUrl = '/spreadsheets'
 
 export const createSpreadsheet = async (
   data: Conv,

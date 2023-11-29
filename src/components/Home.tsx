@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Button } from '@mui/material'
+import React, { useRef, useState } from 'react'
 import { getStatus } from '../api/SpreadsheetService'
 import { ToastContainer } from 'react-toastify'
 import BaseButton from './base/BaseButton'
@@ -9,13 +8,6 @@ import DocsCreation from './DocsCreation'
 import SlidesCreation from './SlidesCreation'
 
 function Home() {
-  const startRef = useRef<HTMLButtonElement | null>(null)
-  useEffect(() => {
-    if (startRef.current) {
-      startRef.current.focus()
-    }
-  }, []) // Empty dependency array ensures that this effect runs only once, when the component is mounted
-
   const [loading, setLoading] = useState(false)
   const [assistedMode, setAssistedMode] = useState(false)
 
@@ -87,9 +79,11 @@ function Home() {
   }
 
   return (
-    <div className="Home">
+    <div className="Home overflow-auto">
       <header className="flex flex-col bg-slate-900 text-slate-50">
-        <Button ref={startRef} autoFocus={true} />
+        <span className="flex flex-col text-3xl items-center justify-center pb-16 pt-10">
+          Choisissez le type de fichier que vous souhaitez générer
+        </span>
         <div className="flex items-center h-1/3 justify-center pb-8 space-x-2">
           <GoogleIcon
             type="sheets"

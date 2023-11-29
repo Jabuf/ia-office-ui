@@ -4,7 +4,7 @@ import PromptUtils from '../utils/PromptUtils'
 import { toast } from 'react-toastify'
 import BaseButton from './base/BaseButton'
 import { DriveFileInfo } from '../api/APIService'
-import { createDocument } from '../api/DocumentService'
+import { ConvDocument, createDocument } from '../api/DocumentService'
 
 function DocsCreation() {
   const promptRef = useRef<HTMLTextAreaElement | null>(null)
@@ -14,14 +14,16 @@ function DocsCreation() {
     }
   }, [])
 
-  const [text, setText] = useState<string>(PromptUtils.getRandomPrompt('docs'))
+  const [conv, setConv] = useState<ConvDocument>({
+    initialPrompt: PromptUtils.getRandomPrompt('docs'),
+  })
   const [loading, setLoading] = useState(false)
   const [fileUrls, setFileUrls] = useState<DriveFileInfo | null>(null)
   const handleApiCreation = () => {
     toast.dismiss()
     void (async () => {
       setLoading(true)
-      const response = await createDocument({ text })
+      const response = await createDocument(conv)
       if (response) {
         setFileUrls(response.data.driveFileInfo)
       }
@@ -38,10 +40,12 @@ function DocsCreation() {
               ref={promptRef}
               minRows={10}
               placeholder="Enter a value"
-              value={text}
+              value={conv.initialPrompt}
               className="rounded-2xl bg-slate-800 text-lg p-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-slate-50"
               onChange={(e) => {
-                setText(e.target.value)
+                setConv({
+                  initialPrompt: e.target.value,
+                })
               }}
             />
             <div className="flex flex-col p-3 space-y-3 justify-center items-center">

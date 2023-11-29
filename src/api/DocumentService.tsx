@@ -7,6 +7,10 @@ import {
   DriveFileInfo,
 } from './APIService'
 
+export type ConvDocument = {
+  initialPrompt: string
+}
+
 export type DocumentInfo = {
   messages: []
   driveFileInfo: DriveFileInfo
@@ -14,9 +18,9 @@ export type DocumentInfo = {
 
 const baseUrl = '/documents'
 
-export const createDocument = async (data: {
-  text: string
-}): Promise<ApiResponse<DocumentInfo> | null> => {
+export const createDocument = async (
+  data: ConvDocument,
+): Promise<ApiResponse<DocumentInfo> | null> => {
   let res: ApiResponse<DocumentInfo> | null = null
   const startTime = performance.now()
 

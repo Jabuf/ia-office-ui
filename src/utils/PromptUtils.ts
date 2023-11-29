@@ -12,8 +12,10 @@ Chaque tableau devra contenir la valeur des stocks avec en ligne le mois et en c
   ]
 
   static promptsDocs = [
-    `Exemple 1 de prompt pour un fichier docs`,
-    `Exemple 2 de prompt pour un fichier docs`,
+    `J'aimerai écrire une lettre de démission.`,
+    `J'aimerai résilier mon bail.`,
+    `Je veux  écrire une critique du film Gladiator.`,
+    `J'aimerai une présentation exhaustive de la société IBM.`,
   ]
 
   static promptsSlides = [

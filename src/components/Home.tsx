@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { getStatus } from '../api/SpreadsheetService'
 import { ToastContainer } from 'react-toastify'
 import BaseButton from './base/BaseButton'
@@ -8,6 +8,10 @@ import DocsCreation from './DocsCreation'
 import SlidesCreation from './SlidesCreation'
 
 function Home() {
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo(0, 0)
+  }, []) // Empty dependency array ensures this effect runs only once, similar to componentDidMount
   const [loading, setLoading] = useState(false)
   const [assistedMode, setAssistedMode] = useState(false)
 
@@ -57,17 +61,11 @@ function Home() {
   const enableAssistedMode = () => {
     setAssistedMode(true)
     toggleSheetsVisibility()
-    if (promptRef.current) {
-      promptRef.current.focus()
-    }
   }
 
   const disableAssistedMode = () => {
     setAssistedMode(false)
     toggleSheetsVisibility()
-    if (promptRef.current) {
-      promptRef.current.focus()
-    }
   }
 
   const checkStatusOpenApi = () => {

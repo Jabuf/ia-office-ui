@@ -6,6 +6,7 @@ import BaseButton from './base/BaseButton'
 import GoogleIcon from './base/GoogleIcon'
 import SheetsCreation from './SheetsCreation'
 import DocsCreation from './DocsCreation'
+import SlidesCreation from './SlidesCreation'
 
 function Home() {
   const startRef = useRef<HTMLButtonElement | null>(null)
@@ -158,7 +159,7 @@ function Home() {
               <SheetsCreation assistedMode={assistedMode} />
             )}
             {showComponents.docs && <DocsCreation />}
-            {showComponents.slides && <span>TODO</span>}
+            {showComponents.slides && <SlidesCreation />}
           </div>
         </div>
         <div className="p-5">

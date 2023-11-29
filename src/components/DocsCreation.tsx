@@ -14,7 +14,7 @@ function DocsCreation() {
     }
   }, [])
 
-  const [text, setText] = useState<string>(PromptUtils.getRandomPrompt())
+  const [text, setText] = useState<string>(PromptUtils.getRandomPrompt('docs'))
   const [loading, setLoading] = useState(false)
   const [fileUrls, setFileUrls] = useState<DriveFileInfo | null>(null)
   const handleApiCreation = () => {

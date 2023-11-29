@@ -29,7 +29,7 @@ function SheetsCreation(props: SheetsCreationProps) {
   }, [])
 
   const [conv, setConv] = useState<Conv>({
-    initialPrompt: PromptUtils.getRandomPrompt(),
+    initialPrompt: PromptUtils.getRandomPrompt('sheets'),
     assistedMode: props.assistedMode,
   })
   const [loading, setLoading] = useState(false)

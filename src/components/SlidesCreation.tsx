@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
 import { TextareaAutosize } from '@mui/material'
-import PromptUtils from '../utils/PromptUtils'
+import { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
-import BaseButton from './base/BaseButton'
-import { DriveFileInfo } from '../api/APIService'
+import { DriveFileInfo } from '../api/FileService'
 import { createSlide } from '../api/SlideService'
+import PromptUtils from '../utils/PromptUtils'
+import BaseButton from './base/BaseButton'
 
 function SlidesCreation() {
   const promptRef = useRef<HTMLTextAreaElement | null>(null)

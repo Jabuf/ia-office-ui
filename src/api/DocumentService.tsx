@@ -4,8 +4,8 @@ import {
   axiosInstance,
   displayApiError,
   displayApiSuccess,
-  DriveFileInfo,
 } from './APIService'
+import { DriveFileInfo } from './FileService'
 
 export type ConvDocument = {
   initialPrompt: string

@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
 import { TextareaAutosize } from '@mui/material'
-import PromptUtils from '../utils/PromptUtils'
+import { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
-import BaseButton from './base/BaseButton'
-import { DriveFileInfo } from '../api/APIService'
 import { ConvDocument, createDocument } from '../api/DocumentService'
+import { DriveFileInfo } from '../api/FileService'
+import PromptUtils from '../utils/PromptUtils'
+import BaseButton from './base/BaseButton'
 
 function DocsCreation() {
   const promptRef = useRef<HTMLTextAreaElement | null>(null)

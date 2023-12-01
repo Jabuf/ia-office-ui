@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { getStatus } from '../api/SpreadsheetService'
+import { useEffect, useState } from 'react'
 import { ToastContainer } from 'react-toastify'
+import { getStatus } from '../api/SpreadsheetService'
+import DocsCreation from './DocsCreation'
+import SheetsCreation from './SheetsCreation'
+import SlidesCreation from './SlidesCreation'
 import BaseButton from './base/BaseButton'
 import GoogleIcon from './base/GoogleIcon'
-import SheetsCreation from './SheetsCreation'
-import DocsCreation from './DocsCreation'
-import SlidesCreation from './SlidesCreation'
 
 function Home() {
   useEffect(() => {
@@ -57,7 +57,7 @@ function Home() {
       sheetsAdvices: false,
     })
   }
-  const promptRef = useRef<HTMLTextAreaElement | null>(null)
+  
   const enableAssistedMode = () => {
     setAssistedMode(true)
     toggleSheetsVisibility()

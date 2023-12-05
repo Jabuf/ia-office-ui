@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import { getStatus } from '../api/SpreadsheetService'
+import PromptUtils from '../utils/PromptUtils'
 import DocsCreation from './DocsCreation'
 import SheetsCreation from './SheetsCreation'
 import SlidesCreation from './SlidesCreation'
 import BaseButton from './base/BaseButton'
+import BaseExamples from './base/BaseExamples'
 import GoogleIcon from './base/GoogleIcon'
 
 function Home() {
@@ -110,14 +112,7 @@ function Home() {
                   label="Oui j'ai une bonne idée des tableaux, lignes et colonnes que je souhaite générer"
                   onClick={disableAssistedMode}
                 />
-                <span className="text-lg text-center w-3/4 italic">
-                  &ldquo;Je veux une feuille avec des tableau par différent taux
-                  de TVA. Les taux de TVAs sont 20%, 2,1%, 5,5% et 10%. Je veux
-                  également une feuille avec un tableau récapitulatif. Chaque
-                  tableau devra contenir la valeur des stocks avec en ligne le
-                  mois et en colonne l'année et ce pour une entière année
-                  civile.&rdquo;
-                </span>
+                <BaseExamples examples={PromptUtils.promptsSheets} />
               </div>
               <div className="flex flex-col items-center justify-center space-y-5  self-start">
                 <BaseButton

@@ -7,8 +7,10 @@ import {
 } from './APIService'
 import { DriveFileInfo } from './FileService'
 
+export type DocumentType = 'letter' | 'mail' | 'block' | 'presentation'
 export type ConvDocument = {
   initialPrompt: string
+  documentType: DocumentType
 }
 
 export type DocumentInfo = {

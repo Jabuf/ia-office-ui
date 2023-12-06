@@ -1,5 +1,5 @@
 import { TextareaAutosize } from '@mui/material'
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import { DriveFileInfo } from '../api/FileService'
 import { createSlide } from '../api/SlideService'
@@ -33,35 +33,36 @@ function SlidesCreation() {
 
   return (
     <div className="DocsCreation">
-      <header className="flex flex-col bg-slate-900 text-slate-50">
-        <div className="flex h-screen w-screen items-center justify-center">
-          <div className="flex flex-col w-1/2">
+      <header className="flex bg-slate-900 text-slate-50">
+        <div className="flex flex-col h-screen w-screen items-center space-y-10">
+          <div className="text-2xl justify-center">
+            <span>Non fonctionnel pour le moment</span>
+          </div>
+          <div className="flex w-full justify-center">
             <TextareaAutosize
               ref={promptRef}
-              minRows={10}
+              minRows={5}
               placeholder="Enter a value"
               value={text}
-              className="rounded-2xl bg-slate-800 text-lg p-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-slate-50"
+              className="rounded-2xl w-1/2 bg-slate-800 text-lg p-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-slate-50"
               onChange={(e) => {
                 setText(e.target.value)
               }}
             />
-            <div className="flex flex-col p-3 space-y-3 justify-center items-center">
-              <BaseButton
-                label={'générer'}
-                onClick={handleApiCreation}
-                disabled={loading}
-                loading={loading}
-              />
-              {fileUrls && fileUrls.webViewLink && (
-                <BaseButton
-                  disabled={loading}
-                  href={fileUrls.webViewLink}
-                  label={'voir'}
-                />
-              )}
-            </div>
           </div>
+          <BaseButton
+            label={'générer'}
+            onClick={handleApiCreation}
+            disabled={loading}
+            loading={loading}
+          />
+          {fileUrls && fileUrls.webViewLink && (
+            <BaseButton
+              disabled={loading}
+              href={fileUrls.webViewLink}
+              label={'voir'}
+            />
+          )}
         </div>
       </header>
     </div>

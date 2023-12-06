@@ -3,7 +3,7 @@ import {
   ApiResponse,
   axiosInstance,
   displayApiError,
-  displayApiSuccess
+  displayApiSuccess,
 } from './APIService'
 
 export type DriveFileInfo = {
@@ -15,10 +15,11 @@ export type DriveFileInfo = {
   webViewLink: string | undefined | null
 }
 
-
 const baseUrl = '/files'
 
-export const getFiles = async (): Promise<ApiResponse<DriveFileInfo[]> | null> => {
+export const getFiles = async (): Promise<ApiResponse<
+  DriveFileInfo[]
+> | null> => {
   let res: ApiResponse<DriveFileInfo[]> | null = null
   const startTime = performance.now()
 
@@ -26,7 +27,7 @@ export const getFiles = async (): Promise<ApiResponse<DriveFileInfo[]> | null> =
     .get(`${baseUrl}`)
     .then((response: AxiosResponse<ApiResponse<DriveFileInfo[]>>) => {
       const endTime = performance.now()
-      displayApiSuccess('fichier', endTime - startTime)
+      displayApiSuccess('fichiers', endTime - startTime)
       res = response.data
     })
     .catch((err: AxiosError) => {

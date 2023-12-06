@@ -1,26 +1,12 @@
-import AccessibleForwardIcon from '@mui/icons-material/AccessibleForward'
-import {
-  FormControlLabel,
-  FormGroup,
-  Switch,
-  TextareaAutosize,
-} from '@mui/material'
-import { useEffect, useRef, useState } from 'react'
+import { TextareaAutosize } from '@mui/material'
+import React, { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import { DriveFileInfo } from '../api/FileService'
-import {
-  Conv,
-  createSpreadsheet,
-  updateCharts,
-} from '../api/SpreadsheetService'
+import { Conv, createSpreadsheet } from '../api/SpreadsheetService'
 import PromptUtils from '../utils/PromptUtils'
 import BaseButton from './base/BaseButton'
 
-interface SheetsCreationProps {
-  assistedMode: boolean
-}
-
-function SheetsCreation(props: SheetsCreationProps) {
+function SheetsCreation() {
   const promptRef = useRef<HTMLTextAreaElement | null>(null)
   useEffect(() => {
     if (promptRef.current) {
@@ -30,20 +16,9 @@ function SheetsCreation(props: SheetsCreationProps) {
 
   const [conv, setConv] = useState<Conv>({
     initialPrompt: PromptUtils.getRandomPrompt('sheets'),
-    assistedMode: props.assistedMode,
+    assistedMode: true,
   })
   const [loading, setLoading] = useState(false)
-  const [steps, setSteps] = useState<{ [key: string]: boolean }>({
-    graphiques: false,
-  })
-
-  const handleStepsChange = (stepName: string) => {
-    setSteps((prevSteps) => ({
-      ...prevSteps,
-      [stepName]: !prevSteps[stepName],
-    }))
-  }
-
   const [fileUrls, setFileUrls] = useState<DriveFileInfo | null>(null)
   const handleApiCreation = () => {
     toast.dismiss()
@@ -54,28 +29,51 @@ function SheetsCreation(props: SheetsCreationProps) {
       if (response) {
         conv.spreadSheetsId = response.data.driveFileInfo.fileId
         conv.messages = response.data.messages
-        if (steps.graphiques) {
-          await updateCharts(conv)
-        }
-
         setFileUrls(response.data.driveFileInfo)
       }
       setLoading(false)
     })()
   }
 
+  const switchAssistedMode = (enabled: boolean) => {
+    setConv((prevConv) => ({
+      ...prevConv,
+      assistedMode: enabled,
+    }))
+  }
+
+  const classesSelected = 'border-2 border-slate-50 rounded-xl p-0.5'
+
   return (
     <div className="SheetsCreation">
-      <header className="flex flex-col bg-slate-900 text-slate-50">
-        <div className="flex h-screen w-screen items-center justify-center">
-          <div className="flex flex-col w-1/2">
-            {conv.assistedMode && <AccessibleForwardIcon />}
+      <header className="flex bg-slate-900 text-slate-50">
+        <div className="flex flex-col h-screen w-screen items-center space-y-10">
+          <div className="text-2xl justify-center">
+            <span>
+              Savez-vous précisement ce que doit contenir votre fichier ?
+            </span>
+          </div>
+          <div className="flex flex-row w-3/4 space-x-3 justify-center">
+            <div
+              onClick={() => switchAssistedMode(true)}
+              className={conv.assistedMode ? classesSelected : ''}
+            >
+              <BaseButton label="Oui j'ai une bonne idée des tableaux, lignes et colonnes que je souhaite générer" />
+            </div>
+            <div
+              onClick={() => switchAssistedMode(false)}
+              className={!conv.assistedMode ? classesSelected : ''}
+            >
+              <BaseButton label="Non je préfère laisser la main et juste partir d'une idée générale" />
+            </div>
+          </div>
+          <div className="flex w-full justify-center">
             <TextareaAutosize
               ref={promptRef}
-              minRows={10}
+              minRows={7}
               placeholder="Enter a value"
               value={conv.initialPrompt}
-              className="rounded-2xl bg-slate-800 text-lg p-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-slate-50"
+              className="rounded-2xl w-1/2 bg-slate-800 text-lg p-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-slate-50"
               onChange={(e) => {
                 setConv({
                   initialPrompt: e.target.value,
@@ -83,32 +81,21 @@ function SheetsCreation(props: SheetsCreationProps) {
                 })
               }}
             />
-            <div className="flex flex-col p-3 space-y-3 justify-center items-center">
-              <FormGroup>
-                {Object.keys(steps).map((stepName) => (
-                  <FormControlLabel
-                    control={<Switch />}
-                    label={stepName}
-                    onChange={() => handleStepsChange(stepName)}
-                  />
-                ))}
-              </FormGroup>
-              {/*TODO extract these buttons into a component*/}
-              <BaseButton
-                label={'générer'}
-                onClick={handleApiCreation}
-                disabled={loading}
-                loading={loading}
-              />
-              {fileUrls && fileUrls.webViewLink && (
-                <BaseButton
-                  disabled={loading}
-                  href={fileUrls.webViewLink}
-                  label={'voir'}
-                />
-              )}
-            </div>
           </div>
+          {/*TODO extract these buttons into a component*/}
+          <BaseButton
+            label={'générer'}
+            onClick={handleApiCreation}
+            disabled={loading}
+            loading={loading}
+          />
+          {fileUrls && fileUrls.webViewLink && (
+            <BaseButton
+              disabled={loading}
+              href={fileUrls.webViewLink}
+              label={'voir'}
+            />
+          )}
         </div>
       </header>
     </div>

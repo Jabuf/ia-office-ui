@@ -1,27 +1,20 @@
-import { useEffect, useState } from 'react'
-import { ToastContainer } from 'react-toastify'
-import { getStatus } from '../api/SpreadsheetService'
-import PromptUtils from '../utils/PromptUtils'
+import React, { useEffect, useState } from 'react'
 import DocsCreation from './DocsCreation'
 import SheetsCreation from './SheetsCreation'
 import SlidesCreation from './SlidesCreation'
-import BaseButton from './base/BaseButton'
-import BaseExamples from './base/BaseExamples'
 import GoogleIcon from './base/GoogleIcon'
+import BaseNotification from './base/BaseNotification'
 
 function Home() {
   useEffect(() => {
     // Scroll to the top of the page when the component mounts
     window.scrollTo(0, 0)
   }, []) // Empty dependency array ensures this effect runs only once, similar to componentDidMount
-  const [loading, setLoading] = useState(false)
-  const [assistedMode, setAssistedMode] = useState(false)
 
   const [showComponents, setShowComponents] = useState({
     docs: false,
     sheets: false,
     slides: false,
-    sheetsAdvices: false,
   })
 
   const toggleDocsVisibility = () => {
@@ -29,16 +22,6 @@ function Home() {
       docs: true,
       sheets: false,
       slides: false,
-      sheetsAdvices: false,
-    })
-  }
-
-  const toggleSheetsAdvicesVisibility = () => {
-    setShowComponents({
-      docs: false,
-      sheets: false,
-      slides: false,
-      sheetsAdvices: true,
     })
   }
 
@@ -47,7 +30,6 @@ function Home() {
       docs: false,
       sheets: true,
       slides: false,
-      sheetsAdvices: true,
     })
   }
 
@@ -56,39 +38,20 @@ function Home() {
       docs: false,
       sheets: false,
       slides: true,
-      sheetsAdvices: false,
     })
-  }
-  
-  const enableAssistedMode = () => {
-    setAssistedMode(true)
-    toggleSheetsVisibility()
-  }
-
-  const disableAssistedMode = () => {
-    setAssistedMode(false)
-    toggleSheetsVisibility()
-  }
-
-  const checkStatusOpenApi = () => {
-    void (async () => {
-      setLoading(true)
-      await getStatus()
-      setLoading(false)
-    })()
   }
 
   return (
-    <div className="Home overflow-auto">
-      <header className="flex flex-col bg-slate-900 text-slate-50">
-        <span className="flex flex-col text-3xl items-center justify-center pb-16 pt-10">
+    <div className="Home">
+      <header className="flex flex-col w-screen h-screen bg-slate-900 text-slate-50">
+        <span className="flex flex-col text-2xl items-center pb-16 pt-10">
           Choisissez le type de fichier que vous souhaitez générer
         </span>
-        <div className="flex items-center h-1/3 justify-center pb-8 space-x-2">
+        <div className="flex h-1/3 justify-center space-x-2 pb-16">
           <GoogleIcon
             type="sheets"
-            onClick={toggleSheetsAdvicesVisibility}
-            focus={showComponents.sheetsAdvices}
+            onClick={toggleSheetsVisibility}
+            focus={showComponents.sheets}
           />
           <GoogleIcon
             type="docs"
@@ -101,61 +64,10 @@ function Home() {
             focus={showComponents.slides}
           />
         </div>
-        {showComponents.sheetsAdvices && (
-          <div className="flex flex-col h-screen text-3xl items-center justify-center">
-            <span className=" pb-16">
-              Savez-vous précisement ce que doit contenir votre fichier ?
-            </span>
-            <div className="flex space-x-5 w-3/4">
-              <div className="flex flex-col items-center justify-center space-y-5 self-start">
-                <BaseButton
-                  label="Oui j'ai une bonne idée des tableaux, lignes et colonnes que je souhaite générer"
-                  onClick={disableAssistedMode}
-                />
-                <BaseExamples examples={PromptUtils.promptsSheets} />
-              </div>
-              <div className="flex flex-col items-center justify-center space-y-5  self-start">
-                <BaseButton
-                  label="Non je préfère laisser la main et juste partir d'une idée générale"
-                  onClick={enableAssistedMode}
-                />
-                <span className="text-lg text-center w-3/4 italic">
-                  &ldquo;Je suis un DPO et je veux envoyer un fichier à la CNIL
-                  dans le cadre de la conformité au RGPD.&rdquo;
-                </span>
-              </div>
-            </div>
-          </div>
-        )}
-        <div className="flex h-screen w-screen items-center justify-center">
-          <div>
-            <ToastContainer
-              position="top-right"
-              hideProgressBar={false}
-              newestOnTop={false}
-              autoClose={false}
-              closeOnClick
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="colored"
-            />
-          </div>
-          <div>
-            {showComponents.sheets && (
-              <SheetsCreation assistedMode={assistedMode} />
-            )}
-            {showComponents.docs && <DocsCreation />}
-            {showComponents.slides && <SlidesCreation />}
-          </div>
-        </div>
-        <div className="p-5">
-          <BaseButton
-            onClick={checkStatusOpenApi}
-            label="Status"
-            loading={loading}
-          />
-        </div>
+        {showComponents.sheets && <SheetsCreation />}
+        {showComponents.docs && <DocsCreation />}
+        {showComponents.slides && <SlidesCreation />}
+        <BaseNotification />
       </header>
     </div>
   )

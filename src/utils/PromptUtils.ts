@@ -12,9 +12,11 @@ Chaque tableau devra contenir la valeur des stocks avec en ligne le mois et en c
   ]
 
   static promptsDocs = [
-    `J'aimerai écrire une lettre de démission.`,
-    `J'aimerai résilier mon bail.`,
-    `Je veux  écrire une critique du film Gladiator.`,
+    `Je veux écrire une procédure de réception physique des colis de mon entreprise avec comptage obligatoire des colis avant signature du bon de livraison.
+    Les salariés doivent ensuite mettre les cartons dans une zone d'attente et commencer le déballage des produits et l'enregistrement de ceci dans le logiciel de gestion du stock.`,
+    `Je veux écrire une note de service sur les mesures anti covid à respecter et pourquoi il est important de les respecter.
+    Cette note de service sera envoyée par mail à tous les salariés.`,
+    `Je veux écrire une lettre aux impôts pour demander un délai de paiement pour mes impôts fonciers. Je suis localisé en France.`,
     `J'aimerai une présentation exhaustive de la société IBM.`,
   ]
 

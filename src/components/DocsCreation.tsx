@@ -9,7 +9,7 @@ import {
 import { DriveFileInfo } from '../api/FileService'
 import PromptUtils from '../utils/PromptUtils'
 import BaseButton from './base/BaseButton'
-import BaseExamples from './base/BaseExamples'
+import BaseCarousel from './base/BaseCarousel'
 
 function DocsCreation() {
   const promptRef = useRef<HTMLTextAreaElement | null>(null)
@@ -109,7 +109,7 @@ function DocsCreation() {
               label={'voir'}
             />
           )}
-          <BaseExamples examples={PromptUtils.promptsDocs} />
+          <BaseCarousel content={PromptUtils.promptsDocs} />
         </div>
       </header>
     </div>

@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import { DriveFileInfo } from '../api/FileService'
 import { createSlide } from '../api/SlideService'
-import PromptUtils from '../utils/PromptUtils'
 import BaseButton from './base/BaseButton'
 
 function SlidesCreation() {
@@ -14,9 +13,7 @@ function SlidesCreation() {
     }
   }, [])
 
-  const [text, setText] = useState<string>(
-    PromptUtils.getRandomPrompt('slides'),
-  )
+  const [text, setText] = useState<string>('')
   const [loading, setLoading] = useState(false)
   const [fileUrls, setFileUrls] = useState<DriveFileInfo | null>(null)
   const handleApiCreation = () => {

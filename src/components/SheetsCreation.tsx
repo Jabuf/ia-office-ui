@@ -3,8 +3,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import { DriveFileInfo } from '../api/FileService'
 import { Conv, createSpreadsheet } from '../api/SpreadsheetService'
-import PromptUtils from '../utils/PromptUtils'
 import BaseButton from './base/BaseButton'
+import PromptUtils from '../utils/PromptUtils'
+import BaseCarousel from './base/BaseCarousel'
 
 function SheetsCreation() {
   const promptRef = useRef<HTMLTextAreaElement | null>(null)
@@ -15,9 +16,12 @@ function SheetsCreation() {
   }, [])
 
   const [conv, setConv] = useState<Conv>({
-    initialPrompt: PromptUtils.getRandomPrompt('sheets'),
+    initialPrompt: '',
     assistedMode: true,
   })
+  const [prompts, setPrompts] = useState<string[]>(
+    PromptUtils.promptsSheets.assisted,
+  )
   const [loading, setLoading] = useState(false)
   const [fileUrls, setFileUrls] = useState<DriveFileInfo | null>(null)
   const handleApiCreation = () => {
@@ -40,6 +44,7 @@ function SheetsCreation() {
       ...prevConv,
       assistedMode: enabled,
     }))
+    setPrompts(PromptUtils.promptsSheets[enabled ? 'assisted' : 'instructions'])
   }
 
   const classesSelected = 'border-2 border-slate-50 rounded-xl p-0.5'
@@ -71,7 +76,7 @@ function SheetsCreation() {
             <TextareaAutosize
               ref={promptRef}
               minRows={7}
-              placeholder="Enter a value"
+              placeholder="Que souhaitez-vous générer ?"
               value={conv.initialPrompt}
               className="rounded-2xl w-1/2 bg-slate-800 text-lg p-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-slate-50"
               onChange={(e) => {
@@ -96,6 +101,7 @@ function SheetsCreation() {
               label={'voir'}
             />
           )}
+          <BaseCarousel content={prompts} />
         </div>
       </header>
     </div>

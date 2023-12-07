@@ -20,9 +20,12 @@ function DocsCreation() {
   }, [])
 
   const [conv, setConv] = useState<ConvDocument>({
-    initialPrompt: PromptUtils.getRandomPrompt('docs'),
+    initialPrompt: '',
     documentType: 'letter',
   })
+  const [prompts, setPrompts] = useState<string[]>(
+    PromptUtils.promptsDocs.letter,
+  )
   const [loading, setLoading] = useState(false)
   const [fileUrls, setFileUrls] = useState<DriveFileInfo | null>(null)
   const handleApiCreation = () => {
@@ -42,6 +45,7 @@ function DocsCreation() {
       ...prevConv,
       documentType: documentType,
     }))
+    setPrompts(PromptUtils.promptsDocs[documentType])
   }
 
   const classesSelected = 'border-2 border-slate-50 rounded-xl p-0.5'
@@ -85,7 +89,7 @@ function DocsCreation() {
             <TextareaAutosize
               ref={promptRef}
               minRows={5}
-              placeholder="Enter a value"
+              placeholder="TODO"
               value={conv.initialPrompt}
               className="rounded-2xl w-1/2 bg-slate-800 text-lg p-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-slate-50"
               onChange={(e) => {
@@ -109,7 +113,7 @@ function DocsCreation() {
               label={'voir'}
             />
           )}
-          <BaseCarousel content={PromptUtils.promptsDocs} />
+          <BaseCarousel content={prompts} />
         </div>
       </header>
     </div>

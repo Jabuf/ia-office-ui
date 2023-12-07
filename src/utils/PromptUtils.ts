@@ -23,7 +23,7 @@ export default abstract class PromptUtils {
     ],
     block: [
       `Je veux écrire une note de service sur les mesures anti covid à respecter et pourquoi il est important de les respecter.
-    Cette note de service à pour but d'être affichée publiquement au sein des locaux de la pharmacie.
+    Cette note de service à pour but d'être affichée publiquement au sein des locaux.
     Mon entreprise est une pharmacie basée en France.`,
     ],
     presentation: [`Je veux écrire une présentation sur l'entreprise IBM.`],

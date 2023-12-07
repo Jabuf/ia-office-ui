@@ -43,7 +43,7 @@ function Home() {
 
   return (
     <div className="Home">
-      <header className="flex flex-col w-screen h-screen bg-slate-900 text-slate-50">
+      <header className="flex flex-col w-screen min-h-screen bg-gradient-to-br from-slate-900 to-cyan-900 text-slate-50">
         <span className="flex flex-col text-2xl items-center pb-16 pt-10">
           Choisissez le type de fichier que vous souhaitez générer
         </span>

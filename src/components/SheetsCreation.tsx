@@ -51,7 +51,7 @@ function SheetsCreation() {
 
   return (
     <div className="SheetsCreation">
-      <header className="flex bg-slate-900 text-slate-50">
+      <header className="flex text-slate-50">
         <div className="flex flex-col h-screen w-screen items-center space-y-10">
           <div className="text-2xl justify-center">
             <span>
@@ -63,22 +63,22 @@ function SheetsCreation() {
               onClick={() => switchAssistedMode(false)}
               className={!conv.assistedMode ? classesSelected : ''}
             >
-              <BaseButton label="Oui j'ai une bonne idée des tableaux, lignes et colonnes que je souhaite générer" />
+              <BaseButton label="Oui j'ai une bonne idée des tableaux que je souhaite générer" />
             </div>
             <div
               onClick={() => switchAssistedMode(true)}
               className={conv.assistedMode ? classesSelected : ''}
             >
-              <BaseButton label="Non je préfère laisser la main et juste partir d'une idée générale" />
+              <BaseButton label="Non je préfère laisser la main et juste exprimer une idée générale" />
             </div>
           </div>
           <div className="flex w-full justify-center">
             <TextareaAutosize
               ref={promptRef}
               minRows={7}
-              placeholder="Que souhaitez-vous générer ?"
+              placeholder="Que doit contenir votre document ?"
               value={conv.initialPrompt}
-              className="rounded-2xl w-1/2 bg-slate-800 text-lg p-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-slate-50"
+              className="rounded-2xl w-1/2 bg-cyan-800 text-lg p-5 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-0 focus-visible:outline-slate-50"
               onChange={(e) => {
                 setConv({
                   initialPrompt: e.target.value,

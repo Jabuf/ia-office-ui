@@ -52,7 +52,7 @@ function DocsCreation() {
 
   return (
     <div className="DocsCreation">
-      <header className="flex bg-slate-900 text-slate-50">
+      <header className="flex text-slate-50">
         <div className="flex flex-col h-screen w-screen items-center space-y-10">
           <div className="text-2xl justify-center">
             <span>Choisissez le format de document qui correspond</span>
@@ -89,9 +89,9 @@ function DocsCreation() {
             <TextareaAutosize
               ref={promptRef}
               minRows={5}
-              placeholder="TODO"
+              placeholder="Que doit contenir votre document ?"
               value={conv.initialPrompt}
-              className="rounded-2xl w-1/2 bg-slate-800 text-lg p-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-slate-50"
+              className="rounded-2xl w-1/2 bg-cyan-800 text-lg p-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-slate-50"
               onChange={(e) => {
                 setConv({
                   initialPrompt: e.target.value,

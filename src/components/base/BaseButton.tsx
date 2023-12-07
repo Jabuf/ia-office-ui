@@ -25,7 +25,7 @@ function BaseButton({
         target="_blank"
         disabled={disabled}
         variant="contained"
-        sx={{ 'background-color': 'rgb(14 116 144)' }}
+        sx={{ 'background-color': 'rgb(7 89 133)' }}
       >
         {loading && (
           <RotatingSquare

@@ -56,13 +56,13 @@ function SheetsCreation() {
           <div className="flex flex-row w-3/4 space-x-3 justify-center">
             <div
               onClick={() => switchAssistedMode(false)}
-              className={conv.assistedMode ? classesSelected : ''}
+              className={!conv.assistedMode ? classesSelected : ''}
             >
               <BaseButton label="Oui j'ai une bonne idée des tableaux, lignes et colonnes que je souhaite générer" />
             </div>
             <div
               onClick={() => switchAssistedMode(true)}
-              className={!conv.assistedMode ? classesSelected : ''}
+              className={conv.assistedMode ? classesSelected : ''}
             >
               <BaseButton label="Non je préfère laisser la main et juste partir d'une idée générale" />
             </div>
